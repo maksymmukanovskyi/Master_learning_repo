@@ -1,1 +1,1 @@
-https://maksymmukanovskyi.github.io/Master_learning_repo/JS-Advanced/
+https://maksymmukanovskyi.github.io/Master_learning_repo/JS-Asynchronous/
