@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions</title>
+    <link type="text/css" rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+    <div class= 'container'>
+        <a class ="link" href="index.html" type = 'button'>BACK TO IELTS CALCULATOR</a>
+<p>Katya i know you don't care about this app, however i decided to share it with you.</p>
+<br>
+<p>Innitially it was designed for your IELTS need, you inspired me to create it.</p>
+<p>To develop it i invested lots of time for calculation, app is not perfect but precise calculation give you a hint on time frame as well as approximate cost for your exam preparation. </p>
+
+    <h1>Here You can find info concerning credit scales and main calc. formulas</h1>
+    <p><span class="first-letter">F</span>irst table convert your averages to hourly scale credit, you can type any valid IELTS value, or approximate,anyway it will be automatically rounded to halfs if needed so, ex(6.63 will be 6.5)
+    Convertion info was taken from official IELT converting table. Program oriented to give your scope of grades from 4 untill 7.5 score, but it could be expended if needed.</p>
+    <table>
+        <tr>
+            <th>IELTS score</th>
+            <th>Hourly rate</th>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>520 hrs</td>
+        </tr>
+        <tr>
+            <td>4.5</td>
+            <td>560 hrs</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>590 hrs</td>
+        </tr>
+        <tr>
+            <td>5.5</td>
+            <td>620 hrs</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>720 hrs</td>
+        </tr>
+        <tr>
+            <td>6.5</td>
+            <td>820 hrs</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>920 hrs</td>
+        </tr>
+        <tr>
+            <td>7.5</td>
+            <td>1020 hrs</td>
+        </tr>
+
+    </table>
+    <br>
+
+    <p><span class="first-letter">S</span>econd Table  store your hours in database, keep in mind to calculate days you need to type both your current IELTS scores and desired hours per day to learn, for each module. Otherwise message will be triggered</p>
+    <br>
+    <p><span class="first-letter">T</span>hird table do calculation of days to learn</p>
+    <p>Simplified version of formula:</p>
+    <br>
+    <h3>DAYS = (((IELTS SCORE CREDIT - YOUR CREDIT)/4)/HRS PER DAY) ITERATED OVER EACH IELTS SCORE</h3>
+    <br>
+    <p>If you have more than minimum IELTS credit for each IELTS score, you will have "_____" days it means you do not need to learn particular module for given score</p>
+    <P>Your current hourly credit score will be shown on the left side of the mentioned table</P>
+    <br>
+    <p><span class="first-letter">F</span>orth table will calculate cost for each of four scores with custom rate field to enter.</p>
+    <p>Table ONLY will work if you type rate per hour, additionally if you have average of your credit score higher then any of the provided scores (6, 6.5, 7, 7.5) than you will receive "0.00 hrn" as the cost for tutorials, it means you don't need tutorials for that score. </p>
+    <p>For the tutorial calculation i took in consideration just two modules,- "speaking" and "writing", you don't need to spend money for "listening" and "reading"</p>
+    <p>So simplified version of formula for the cost:</p>
+    <br>
+    <h3>COST = COST/HR * ((IELTS SCORE CREDIT - (WRITING CREDIT + SPEAKING CREDIT)/2)/4)
+        ITERATED OVER EACH IELTS SCORE IF YOUR AVERAGE CREDIT IS LOWER THAN IELTS CREDIT FOR EACH MODULE.
+    </h3>
+    <p>Hope  it will be usefull for you</p>
+    <a class ="link" href="https://buki.com.ua/tutors/anhliiska-mova/kyyiv/in_tutor/" type = 'button'>Decent price for tutorials might be found here.</a>
+    </div>
+    
+</body>
+</html>

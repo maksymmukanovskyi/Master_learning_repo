@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="css/styles.css">
+    <title>IELTS Budget</title>
+</head>
+<body>
+    <div class = 'root'>
+        <!-------------------------- FIRST TABLE --------------------------------->
+    <table class = 'scores'>
+        <caption>
+            TYPE YOUR CURRENT SCORES
+        </caption>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Listening</th>
+            <th>Reading</th>
+            <th>Writing</th>
+            <th>Speaking</th> 
+            <th>&nbsp;</th>
+        </tr>
+    <tr>
+        <th width="90px">Your Scores</th>
+        <td><input type="text"  class = 'curScore'  size="2" placeholder="Score"></td>
+        <td><input type="text"  class = 'curScore'  size="2" placeholder="Score"></td>
+        <td><input type="text"  class = 'curScore'  size="2" placeholder="Score"></td>
+        <td><input type="text"  class = 'curScore'  size="2" placeholder="Score"></td> 
+        <td width="97px">&nbsp;</td>
+
+    </tr>
+    </table>
+        <!-------------------------- SECOND TABLE --------------------------------->
+
+    <table class = 'hours'>
+        <caption>
+            TYPE YOUR DAYLY HOURS SPENT FOR LEARNING
+        </caption>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Listening</th>
+            <th>Reading</th>
+            <th>Writing</th>
+            <th>Speaking</th> 
+            <th>&nbsp;</th>
+        </tr>
+    <tr>
+        <th width="90px"> Hrs </th>
+        <td><input type="text" class="intHrs" size="2" placeholder="Hours"></td>
+        <td><input type="text" class="intHrs" size="2" placeholder="Hours"></td>
+        <td><input type="text" class="intHrs" size="2" placeholder="Hours"></td>
+        <td><input type="text" class="intHrs" size="2" placeholder="Hours"></td> 
+        <td id = "submitBtn" type = "button">SUBMIT</td> 
+
+    </tr>
+    </table>
+        <!-------------------------- THIRD TABLE --------------------------------->
+
+    <table class = 'result'>
+        <caption>
+            DAYS TO LEARN TO ACHIEVE DESIRED SCORE
+        </caption>
+        <tr>
+            <th>Your credits&setmn;Desired scores</th>
+                    <th>6</th>
+                    <th>6.5</th>
+                    <th>7</th>
+                    <th>7.5</th>
+                    <th>&nbsp;</th>
+        </tr>
+    <tr class = 'listenOutput'>
+            <th width="90px"> 0 hour </th>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <th>Listening</th>
+    </tr>
+    <tr class = 'readOutput'>
+            <th width="90px"> 0 hour </th>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <th>Reading</th>
+    </tr>
+    <tr class = 'writeOutput'>
+            <th width="90px"> 0 hour </th>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+
+            <th>Writing</th>
+    </tr>
+    <tr class = 'speakOutput'>
+            <th width="90px"> 0 hour </th>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <td>______</td>
+            <th>Speaking</th>
+    </tr>
+    </table>
+
+        <!-------------------------- FORTH TABLE --------------------------------->
+
+    <table class = 'cost'>
+        <caption>
+            TUTORIAL EXPENSE CALCULATOR
+        </caption>
+        <tr>
+            <th>Rate/Hr</th>
+            <th>Desired Level</th>
+            <th>Expected cost</th>
+        </tr>
+        <tr>
+            <td><input type="text" class="rateInp" name="name"  size="2" placeholder="Rate"></td>
+            <td class = "selectLevelBtns">
+                <div class = "submitSix" type = "button">6</div>
+                <div class = "submitSixFive" type = "button">6.5</div>
+                <div class = "submitSeven" type = "button">7</div>
+                <div class = "submitSevenFive" type = "button">7.5</div>
+            </td>
+            <td class = 'rateOutp'>0.00 UAH</td>
+        </tr>
+    </table>
+    <div class ="initCalc" type ='button'>START OVER</div>
+    <a class ="link" href="index_2.html" type = 'button'>CHECK RULES</a>
+
+</div>  
+    <script src='js/app.js'></script>
+</body>
+</html>
