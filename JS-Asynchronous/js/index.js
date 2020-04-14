@@ -134,7 +134,6 @@ const removeUserHandler = (e) => {
         removeUser(removeUserId).then(() => {
                 alert(`${data.data.name} was saccessfuly deleted!`)
                 updatePersonObj();
-                toggleOverlay();
             }): alert('NO SUCH USER FOUND'), toggleOverlay();
     listeners.removeUserById.reset();
 })
@@ -151,7 +150,6 @@ const updatePersonInfo = (e) => {
         data.status === 200?
         updateUser(updateUserId, name, age).then(() => {
                 updatePersonObj();
-                toggleOverlay();
                 alert(`${name} was saccessfuly updated!`)
             }): alert('NO SUCH USER FOUND'), toggleOverlay();
     listeners.updateUserById.reset();
