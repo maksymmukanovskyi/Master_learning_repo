@@ -55,11 +55,9 @@ const updateUser = (id, n, a) => {
 function toggleOverlay(){
     listeners.overlay.classList.toggle('visible');
 }
-// addUser('Ivan', 15).then(data => console.log(data));
-getAllUsers().then(data => console.log(data.data));
-// getUserById('5e93c99c7820220014107c6c').then(data => console.log(data));
-// removeUser(null);
-// updateUser('5e93c94a7820220014107c61', 'Katya', 25)
+// getAllUsers().then(data => console.log(data.data));
+
+
 const listeners = {
     showAllUsersBtn: document.querySelector('.superBtn'),
     persons: document.querySelector('.persons'),
@@ -81,6 +79,33 @@ const listeners = {
 
 };
 
+const UIcontroller = (() => {
+       
+        
+
+            return{
+                userCall(){
+                    addUser(listeners.newName.value, listeners.newAge.value)
+                        .then(status => {
+                        status.status === 201? updatePersonObj():console.log('ups')
+                        toggleOverlay();
+                })},
+        
+                
+
+                newUserHandle(call, resetDom){
+                    return function(e){
+                    e.preventDefault(); 
+                    if(e.target.nodeName !== "BUTTON") return;
+                    toggleOverlay();
+                        call();
+                    resetDom.reset();
+                    }
+                }
+            }
+            
+})()
+
 
 function updatePersonObj() {
     toggleOverlay();
@@ -93,18 +118,23 @@ function updatePersonObj() {
 
 
 
-const createNewPersonHandler = (e) => {
-    e.preventDefault();
-    if(e.target.nodeName !== "BUTTON") return;
-    toggleOverlay();
 
-    addUser(listeners.newName.value, listeners.newAge.value)
-    .then(status => {
-        status.status === 201? updatePersonObj():console.log('ups')
-        toggleOverlay();
-    })
-    listeners.newPersonForm.reset();
-}
+
+
+
+
+// const createNewPersonHandler = (e) => {
+//     e.preventDefault();
+//     if(e.target.nodeName !== "BUTTON") return;
+//     toggleOverlay();
+
+//     addUser(listeners.newName.value, listeners.newAge.value)
+//     .then(status => {
+//         status.status === 201? updatePersonObj():console.log('ups')
+//         toggleOverlay();
+//     })
+//     listeners.newPersonForm.reset();
+// }
 
 const findById = (e) => {
     e.preventDefault();
@@ -165,7 +195,8 @@ const updatePersonInfo = (e) => {
 
 const appController = (function(){
     updatePersonObj();
-    listeners.newPersonForm.addEventListener('click', createNewPersonHandler);
+    listeners.newPersonForm.addEventListener('click', UIcontroller.newUserHandle(UIcontroller.userCall, listeners.newPersonForm));
+
     listeners.getUserByIdForm.addEventListener('click', findById);
     listeners.removeUserById.addEventListener('click', removeUserHandler);
     listeners.showAllUsersBtn.addEventListener('click', updatePersonObj)
