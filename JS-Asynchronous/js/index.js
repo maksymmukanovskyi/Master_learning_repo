@@ -71,10 +71,16 @@ const listeners = {
     getUserByIdForm: document.querySelector('.get-user-by-id'),
     userId: document.querySelector('.user-id'),
 
+    updateUserById: document.querySelector('.update-user-by-id'),
+    updateId: document.querySelector('.update-user-id'),
+    updateName: document.querySelector('.update-user-name'),
+    updateAge: document.querySelector('.update-user-age'),
+
     removeUserById: document.querySelector('.remove-user-by-id'),
     removeId: document.querySelector('.remove-user-id')
 
 };
+
 
 function updatePersonObj() {
     toggleOverlay();
@@ -105,14 +111,18 @@ const findById = (e) => {
     if(e.target.nodeName !== "BUTTON") return;
     let userId = listeners.userId.value;
     toggleOverlay();
-    getUserById(userId)
-    .then(data => `<div class="person"><h4> My name is ${data.data.name}</h4><br><p>I'm ${data.data.age} years old</p> <br><p>My id is: ${data.data.id}</p></div>`)
-    .then(data => {
-            listeners.persons.innerHTML = data
+    getUserById(userId).then(data => {
+        if(data.status === 200){
+        listeners.persons.innerHTML = `<div class="person"><h4> My name is ${data.data.name}</h4><br><p>I'm ${data.data.age} years old</p> <br><p>My id is: ${data.data.id}</p></div>`;
         toggleOverlay();
+    }else{
+            alert('NO SUCH USER FOUND');
+            toggleOverlay()
+        }
     })
-    listeners.getUserByIdForm.reset();
-}
+        listeners.getUserByIdForm.reset();
+    }
+    
 
 const removeUserHandler = (e) => {
     e.preventDefault();
@@ -125,9 +135,28 @@ const removeUserHandler = (e) => {
                 alert(`${data.data.name} was saccessfuly deleted!`)
                 updatePersonObj();
                 toggleOverlay();
-            }): alert('NO SUCH USER FOUND') && toggleOverlay();
+            }): alert('NO SUCH USER FOUND'), toggleOverlay();
     listeners.removeUserById.reset();
 })
+}
+
+const updatePersonInfo = (e) => {
+    e.preventDefault();
+    if(e.target.nodeName !== "BUTTON") return;
+    let updateUserId = listeners.updateId.value;
+    let name = listeners.updateName.value;
+    let age = listeners.updateAge.value;
+    toggleOverlay();
+    getUserById(updateUserId).then(data => {
+        data.status === 200?
+        updateUser(updateUserId, name, age).then(() => {
+                updatePersonObj();
+                toggleOverlay();
+                alert(`${name} was saccessfuly updated!`)
+            }): alert('NO SUCH USER FOUND'), toggleOverlay();
+    listeners.updateUserById.reset();
+})
+
 }
 
 
@@ -141,5 +170,7 @@ const appController = (function(){
     listeners.newPersonForm.addEventListener('click', createNewPersonHandler);
     listeners.getUserByIdForm.addEventListener('click', findById);
     listeners.removeUserById.addEventListener('click', removeUserHandler);
+    listeners.showAllUsersBtn.addEventListener('click', updatePersonObj)
+    listeners.updateUserById.addEventListener('click', updatePersonInfo)
 })();
 
