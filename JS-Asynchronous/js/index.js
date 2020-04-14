@@ -61,7 +61,7 @@ getAllUsers().then(data => console.log(data.data));
 // removeUser(null);
 // updateUser('5e93c94a7820220014107c61', 'Katya', 25)
 const listeners = {
-    showAllUsersBtn: document
+    showAllUsersBtn: document.querySelector('.superBtn'),
     persons: document.querySelector('.persons'),
     newPersonForm: document.querySelector('.new-person-form'),
     newName: document.querySelector('.newname'),
