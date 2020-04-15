@@ -17,25 +17,21 @@ const addUser = (n, a)=> {
 
 
 };
-
 const getAllUsers =() => {
     return fetch(`https://test-users-api.herokuapp.com/users/`)
     .then(response => response.json())
     .catch(error => error);
 }
-
 const getUserById = (id) => {
     return fetch(`https://test-users-api.herokuapp.com/users/${id}/`)
     .then(response => response.json())
     .catch(error => error);
 }
-
 const removeUser = (id) => {
     return fetch(`https://test-users-api.herokuapp.com/users/${id}/`,{
         method: 'DELETE'
     })
 }
-
 const updateUser = (id, n, a) => {
     let editUser = {
         name: n,
@@ -58,47 +54,45 @@ function toggleOverlay(){
 
 
 const listeners = {
-    showAllUsersBtn: document.querySelector('.superBtn'),
-    persons: document.querySelector('.persons'),
-    newPersonForm: document.querySelector('.new-person-form'),
-    newName: document.querySelector('.newname'),
-    newAge: document.querySelector('.newage'),
+    mainForm: document.querySelector('.update-user-by-id'),
+    inputId: document.querySelector('.user-id'),
+    inputName: document.querySelector('.user-name'),
+    inputAge: document.querySelector('.user-age'),
+    createBtn: document.querySelector('.btnCreate'),
+    getBtn: document.querySelector('.btnGet'),
+    updateBtn: document.querySelector('.btnUpdate'),
+    removeBtn: document.querySelector('.btnRemove'),
+    superBtn :document.querySelector('.superBtn'),
     overlay: document.querySelector('.overlay'),
-
-    getUserByIdForm: document.querySelector('.get-user-by-id'),
-    userId: document.querySelector('.user-id'),
-
-    updateUserById: document.querySelector('.update-user-by-id'),
-    updateId: document.querySelector('.update-user-id'),
-    updateName: document.querySelector('.update-user-name'),
-    updateAge: document.querySelector('.update-user-age'),
-
-    removeUserById: document.querySelector('.remove-user-by-id'),
-    removeId: document.querySelector('.remove-user-id')
-
+    persons: document.querySelector('.persons'),
 };
 
+
 const UIcontroller = (function(){
-    const updatePersonObj = function(){
-        toggleOverlay();
-        getAllUsers().then(data => data.data.reduce((acc, el) => acc + `<div class="person"><h4> My name is ${el.name}</h4><br><p>I'm ${el.age} years old</p> <br><p>My id is: ${el.id}</p></div>`,'')).then(data => {
-            listeners.persons.innerHTML = data
-            toggleOverlay();
+            const id = listeners.inputId.value;
+
+            const updatePersonObj = function(){
+                toggleOverlay();
+                getAllUsers().then(data => data.data.reduce((acc, el) => acc + `<div class="person"><h4> My name is ${el.name}</h4><br><p>I'm ${el.age} years old</p> <br><p>My id is: ${el.id}</p></div>`,'')).then(data => {
+                listeners.persons.innerHTML = data
+                toggleOverlay();
         })
     };
+           
         
             return{
                 updatePersonObj,
 
                 userCall(){
-                    addUser(listeners.newName.value, listeners.newAge.value)
+                    addUser(listeners.inputName.value, listeners.inputAge.value)
                         .then(status => {
                         status.status === 201? updatePersonObj():console.log('ups')
                         toggleOverlay();
-                })},
+                })
+            },
 
                 findByIdCall(){
-                    getUserById(listeners.userId.value).then(data => {
+                    getUserById(listeners.inputId.value).then(data => {
                         if(data.status === 200){
                         listeners.persons.innerHTML = `<div class="person"><h4> My name is ${data.data.name}</h4><br><p>I'm ${data.data.age} years old</p> <br><p>My id is: ${data.data.id}</p></div>`;
                         toggleOverlay();
@@ -110,7 +104,7 @@ const UIcontroller = (function(){
                 },
 
                 removeUserCall(){
-                    getUserById(listeners.removeId.value).then(data => {
+                    getUserById(listeners.inputId.value).then(data => {
                      data.status === 200?
                     removeUser(data.data.id).then(() => {
                     alert(`${data.data.name} was saccessfuly deleted!`)
@@ -120,9 +114,9 @@ const UIcontroller = (function(){
                 },
 
                 updatePersonInfoCall(){
-                    let name = listeners.updateName.value;
-                    let age = listeners.updateAge.value;
-                    getUserById(listeners.updateId.value).then(data => {
+                    let name = listeners.inputName.value;
+                    let age = listeners.inputAge.value;
+                    getUserById(listeners.inputId.value).then(data => {
                     data.status === 200?
                     updateUser(data.data.id, name, age).then(() => {
                     updatePersonObj();
@@ -136,6 +130,7 @@ const UIcontroller = (function(){
                     e.preventDefault(); 
                     if(e.target.nodeName !== "BUTTON") return;
                     toggleOverlay();
+
                         call();
                     resetDom.reset();
                     }
@@ -144,23 +139,12 @@ const UIcontroller = (function(){
             
 })()
 
-
-
-
-
 const appController = (function(){
     UIcontroller.updatePersonObj();
-    listeners.newPersonForm.addEventListener('click', UIcontroller.formHandler(UIcontroller.userCall, listeners.newPersonForm));
-
-    listeners.getUserByIdForm.addEventListener('click', UIcontroller.formHandler(UIcontroller.findByIdCall, listeners.getUserByIdForm));
-
-    
-    listeners.removeUserById.addEventListener('click', UIcontroller.formHandler(UIcontroller.removeUserCall, listeners.removeUserById));
-
-
-    listeners.updateUserById.addEventListener('click', UIcontroller.formHandler(UIcontroller.updatePersonInfoCall, listeners.updateUserById));
-
-
-    listeners.showAllUsersBtn.addEventListener('click', UIcontroller.updatePersonObj)
+    listeners.createBtn.addEventListener('click', UIcontroller.formHandler(UIcontroller.userCall, listeners.mainForm));
+    listeners.getBtn.addEventListener('click', UIcontroller.formHandler(UIcontroller.findByIdCall, listeners.mainForm));
+    listeners.removeBtn.addEventListener('click', UIcontroller.formHandler(UIcontroller.removeUserCall, listeners.mainForm));
+    listeners.updateBtn.addEventListener('click', UIcontroller.formHandler(UIcontroller.updatePersonInfoCall, listeners.mainForm));
+    listeners.superBtn.addEventListener('click', UIcontroller.updatePersonObj)
 })();
 

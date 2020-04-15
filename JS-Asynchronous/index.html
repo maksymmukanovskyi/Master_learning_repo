@@ -10,37 +10,30 @@
 <body>
     <h1>Asynchronous JavaScript</h1>
     <div class = "modifyPanel">
-        <form class="new-person-form" method="post">
-            <h4>NEW PERSON</h4>
-            <label for="newname">Type user name</label><br>
-            <input type="text" class="newname" name="name" ><br>
-            <label for="newage">Type user age</label><br>
-            <input type="text" class="newage" name="name" ><br>
-            <button class="btn" type="submit">Submit</button><br>
-        </form>
-        <form class="get-user-by-id" method="post">
-            <h4>GET USER BY ID</h4>
-            <label for="user">Type user ID</label><br>
-            <input type="text" class="user-id" name="name" ><br>
-            <button class="btn" type="submit">Submit</button><br>
-        </form>
+    <div class="form">
         <form class="update-user-by-id" method="post">
             <h4>UPDATE USER BY ID</h4>
-            <label for="user">Type user ID</label><br>
-            <input type="text" class="update-user-id" name="name" ><br>
-            <label for="user">Type user Name</label><br>
-            <input type="text" class="update-user-name" name="name" ><br>
-            <label for="user">Type user Age</label><br>
-            <input type="text" class="update-user-age" name="name" ><br>
-            <button class="btn" type="submit">Submit</button><br>
+            <label for="user">ID</label><br>
+            <input type="text" class="user-id" name="name" placeholder="Type user ID" ><br>
+            <label for="user">Name</label><br>
+            <input type="text" class="user-name" name="name" placeholder="Type user Name"><br>
+            <label for="user">Age</label><br>
+            <input type="text" class="user-age" name="name" placeholder="Type user Age"><br>
         </form>
-        <form class="remove-user-by-id" method="post">
-            <h4>REMOVE USER BY ID</h4>
-            <label for="user">Type user ID</label><br>
-            <input type="text" class="remove-user-id" name="name" ><br>
-            <button class="btn" type="submit">Submit</button><br>
-        </form>
-        <button class="superBtn" type="button">SHOW ALL USERS</button>
+    </div>
+    <div class="buttons">
+            <button class="btnCreate" type="submit">Create</button>
+            <button class="btnGet" type="submit">Get User</button>
+            <button class="btnUpdate" type="submit">Update</button>
+            <button class="btnRemove" type="submit">Remove User</button>
+            <span>Please fill field Name and Age</span>
+            <span>Please fill field ID</span>
+            <span>Please fill field ID, Name, Age</span>
+            <span>Please fill field ID</span>
+            <button class="superBtn" type="button">SHOW ALL USERS</button>
+            
+
+        </div>
     </div>
 
     <div class = 'overlay'>
@@ -60,7 +53,6 @@
             </div>
     </div>
     <div class="persons">
-        <!-- <div class="person"></div> -->
     </div>
     <script src = 'js/index.js'></script>
 </body>
