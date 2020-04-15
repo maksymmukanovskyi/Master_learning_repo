@@ -13,9 +13,6 @@ const addUser = (n, a)=> {
     })
     .then(response => response.json())
     .catch(error => error);
-    
-
-
 };
 const getAllUsers =() => {
     return fetch(`https://test-users-api.herokuapp.com/users/`)
@@ -52,7 +49,6 @@ function toggleOverlay(){
     listeners.overlay.classList.toggle('visible');
 }
 
-
 const listeners = {
     mainForm: document.querySelector('.update-user-by-id'),
     inputId: document.querySelector('.user-id'),
@@ -67,10 +63,7 @@ const listeners = {
     persons: document.querySelector('.persons'),
 };
 
-
 const UIcontroller = (function(){
-            const id = listeners.inputId.value;
-
             const updatePersonObj = function(){
                 toggleOverlay();
                 getAllUsers().then(data => data.data.reduce((acc, el) => acc + `<div class="person"><h4> My name is ${el.name}</h4><br><p>I'm ${el.age} years old</p> <br><p>My id is: ${el.id}</p></div>`,'')).then(data => {
@@ -78,16 +71,19 @@ const UIcontroller = (function(){
                 toggleOverlay();
         })
     };
-           
-        
             return{
                 updatePersonObj,
-
                 userCall(){
                     addUser(listeners.inputName.value, listeners.inputAge.value)
                         .then(status => {
-                        status.status === 201? updatePersonObj():console.log('ups')
+                        if(status.status === 201){
+                            alert(`${status.data.name} was saccessfuly added!`);
+                            updatePersonObj()
+                            toggleOverlay();
+                        }else{
+                        alert('NO SUCH USER ADDED')
                         toggleOverlay();
+                        }
                 })
             },
 
@@ -130,13 +126,11 @@ const UIcontroller = (function(){
                     e.preventDefault(); 
                     if(e.target.nodeName !== "BUTTON") return;
                     toggleOverlay();
-
                         call();
                     resetDom.reset();
                     }
                 },
             }
-            
 })()
 
 const appController = (function(){
