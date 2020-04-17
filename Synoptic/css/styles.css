@@ -1,1 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Open Sans;
+    position: relative;
+    height: 100vh;
+    font-weight: 300;
+    background-color: rgb(236, 212, 182);
 
+}
+.output{
+    margin: auto;
+    width: 41.5%;
+    border: 1px solid #ccc;
+    height: 65px;
+    position: absolute;
+    top: 45%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.493);
+    height: 230px;
+    border-radius: 5px;
+}
+.infoblock{
+    width: 90%;
+    background-color: rgba(2, 1, 1, 0.493);
+    height: 90%;
+    border-radius: 5px;
+    margin: auto;
+}
+.weekFork{
+    display: block;
+    width: 97%;
+    /* background-color: rgb(185, 185, 185); */
+    height: 170px;
+    margin: auto;
+    position: absolute;
+    top: 83%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.main-list{
+    display: flex;
+  justify-content: space-between;
+
+}
+
+.main-list > li{
+    margin-top: 10px;
+display: block;
+width: 14%; 
+height: 150px; 
+background-color: rgb(255, 255, 255); 
+border-radius: 5px;
+}
+  
+  .searchContainer {
+    position: absolute;
+    top: 12%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+    width: 41.5%;
+    height: 42px;
+    display: inline-flex;
+    flex: 1 1 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.719);
+  }
+  
+  .searchIcon {
+    padding: 0.5rem;
+    color: rgba(44, 44, 44, 0.623);
+    font-size: 25px;
+  }
+  
+  .searchBox {
+    border: 0;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    flex: 1;
+    background-color: unset;
+    color: rgba(44, 44, 44, 0.623);
+    text-align: center;
+    font-size: 19px;
+  }
+  ::placeholder{
+    color: rgba(44, 44, 44, 0.623);
+  }
+  
+  .searchButton {
+    background: #538AC5;
+    border: 0;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0;
+  }
+/* //////////////////////////////////////////////////////////////////// */
+.background{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(15, 15, 15, 0.294);;
+    /* background: url('') ; */
+    background: linear-gradient( rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0.048) ), url('https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_960_720.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} 
+.overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.sk-cube-grid {
+    width: 120px;
+    height: 120px;
+    margin:  auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .sk-cube-grid .sk-cube {
+    width: 33%;
+    height: 33%;
+    background-color: rgb(248, 248, 248);
+    float: left;
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+            animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+  }
+  .sk-cube-grid .sk-cube1 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  .sk-cube-grid .sk-cube2 {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s; }
+  .sk-cube-grid .sk-cube3 {
+    -webkit-animation-delay: 0.4s;
+            animation-delay: 0.4s; }
+  .sk-cube-grid .sk-cube4 {
+    -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s; }
+  .sk-cube-grid .sk-cube5 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  .sk-cube-grid .sk-cube6 {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s; }
+  .sk-cube-grid .sk-cube7 {
+    -webkit-animation-delay: 0s;
+            animation-delay: 0s; }
+  .sk-cube-grid .sk-cube8 {
+    -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s; }
+  .sk-cube-grid .sk-cube9 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  
+  @-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+      -webkit-transform: scale3D(1, 1, 1);
+              transform: scale3D(1, 1, 1);
+    } 35% {
+      -webkit-transform: scale3D(0, 0, 1);
+              transform: scale3D(0, 0, 1); 
+    }
+  }
+  
+  @keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+      -webkit-transform: scale3D(1, 1, 1);
+              transform: scale3D(1, 1, 1);
+    } 35% {
+      -webkit-transform: scale3D(0, 0, 1);
+              transform: scale3D(0, 0, 1);
+    } 
+  }
