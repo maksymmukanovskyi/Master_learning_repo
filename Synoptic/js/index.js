@@ -15,7 +15,6 @@ const weatherController = (function(){
 
     let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d66551022b569be6f23252593&q=${query} sky&category=nature`)
         .then(data => data.json())
-        .then(res => console.log(res));
 
     return{
         
@@ -28,8 +27,26 @@ const weatherController = (function(){
             }
         },
 
-        backgroundFatch: (inpur) => {
-            fetchBackground(input)
+        backgroundFatch: (input) => {
+            let time;
+            switch(input) {
+                case input > 20 && input < 23:
+                time = "night sky";
+                break;
+                case input >= 6 && input <= 9:
+                time = 'morning sky';
+                break;
+                case input >= 9 && input <= 18:
+                time = 'day sky';
+                break;
+                case input >= 18 && input <= 20:
+                time = 'evening sky';
+                break;
+                default: 
+                time = 'sunny sky';
+            }
+            console.log(time)
+            return fetchBackground(time)
         }
 
 
@@ -63,11 +80,14 @@ const UIcontroller = (function(){
             weatherController.globalFetch(data).then(data => {
                 let location = data.location;
                 let currentWeather = data.current;
+                let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
 
+            weatherController.backgroundFatch(localHour).then(data => console.log(data));
+            console.log(localHour)
 
             let markup = `<div class="infoblock">
             <p class="country">${location.name}, ${location.country}</p>
-            <p class="time">Local Time:${currentWeather.observation_time}</p>
+            <p class="time">Local Time: ${location.localtime.split(' ')[1]}</p>
             <img src=${currentWeather.weather_icons[0]} alt="Weather icon" height="42" width="42">
             <p class="temperature">Local Temperature: ${currentWeather.temperature}</p>
 
@@ -110,7 +130,6 @@ const appController = (function(wetherCtrl, uiCtrl){
         if(input !== '' && !isNaN(input)) return;
         uiCtrl.updateInterface(input);
         myNodes.searchInput.value = '';
-
     }
 
     return {
