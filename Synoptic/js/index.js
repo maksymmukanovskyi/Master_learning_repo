@@ -9,43 +9,39 @@ const weatherController = (function(){
             .then(data => data.ip)
             .catch(err => console.log(err));
 
-    let fetchWeather = query => fetch(`http://api.weatherstack.com/current?access_key=0114deb051abfe57324a33b1cf11b6b5&query=${query}`)
-            .then(response => response.json())
+    let fetchWeather = query => fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=a3a4052d61ef5ecda40143bec7a6b7b6&units=metric`)
+            .then(data => data.json())
             .catch(err => console.log(err));
+
+    let findCityTime = ip => fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=574e0feb69a547daab56c0922bde0d16&ip=${ip}`)
+            .then(data => data.json())
+
 
     let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d66551022b569be6f23252593&q=${query} sky&category=nature`)
         .then(data => data.json())
 
     return{
-        
 
         globalFetch: (input) => {
-            if(input == ''){
-                return fetchIP().then(fetchWeather)
+            if(input == null){
+                return  fetchIP().then(findCityTime).then(data => fetchWeather(data.city));
+
             }else{
                 return fetchWeather(input);
             }
         },
 
-        backgroundFatch: (input) => {
+        backgroundFetch: (input) => {
             let time;
-            switch(input) {
-                case input > 20 && input < 23:
+            if(input >= 0 && input < 6 || input >= 21 && input <= 24){
                 time = "night sky";
-                break;
-                case input >= 6 && input <= 9:
+            }else if(input >= 6 && input < 9){
                 time = 'morning sky';
-                break;
-                case input >= 9 && input <= 18:
+            }else if(input >= 9 && input < 18){
                 time = 'day sky';
-                break;
-                case input >= 18 && input <= 20:
+            }else if(input >= 18 && input <= 20){
                 time = 'evening sky';
-                break;
-                default: 
-                time = 'sunny sky';
             }
-            console.log(time)
             return fetchBackground(time)
         }
 
@@ -78,27 +74,40 @@ const UIcontroller = (function(){
         updateInterface: function(data){
             toggleOverlay();
             weatherController.globalFetch(data).then(data => {
-                let location = data.location;
-                let currentWeather = data.current;
-                let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
+                
+                // let location = data.location;
+                // let currentWeather = data.current;
+                // let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
+                console.log(data)
 
-            weatherController.backgroundFatch(localHour).then(data => console.log(data));
-            console.log(localHour)
 
-            let markup = `<div class="infoblock">
-            <p class="country">${location.name}, ${location.country}</p>
-            <p class="time">Local Time: ${location.localtime.split(' ')[1]}</p>
-            <img src=${currentWeather.weather_icons[0]} alt="Weather icon" height="42" width="42">
-            <p class="temperature">Local Temperature: ${currentWeather.temperature}</p>
+        //     weatherController.backgroundFetch(localHour).then(data => {
+        //         let numb = Math.round(Math.random() * 10);
+        //         nodeList.background.setAttribute("style", ` width: 100%;
+        //         height: 100%;
+        //         background-color:  rgba(15, 15, 15, 0.294);;
+        //         background: url('') ; 
+        //          background: linear-gradient( rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0.048) ), url(${data.hits[numb].largeImageURL}) no-repeat center center fixed;
+        //       -webkit-background-size: cover; 
+        //       -moz-background-size: cover;
+        //       -o-background-size: cover;
+        //       background-size: cover;` )
+        //     })
 
-         <ul>
-            <li class="feelslike">Feels Like: ${currentWeather.feelslike}</li>
-            <li class="humidity">Humidity: ${currentWeather.humidity}</li>
-            <li class="uv-index">UV Index: ${currentWeather.uv_index}</li>
-        </ul>
-        </div>`
+        //     let markup = `<div class="infoblock">
+        //     <p class="country">${location.name}, ${location.country}</p>
+        //     <p class="time">Local Time: ${location.localtime.split(' ')[1]}</p>
+        //     <img src=${currentWeather.weather_icons[0]} alt="Weather icon" height="42" width="42">
+        //     <p class="temperature">Local Temperature: ${currentWeather.temperature}</p>
+
+        //  <ul>
+        //     <li class="feelslike">Feels Like: ${currentWeather.feelslike}</li>
+        //     <li class="humidity">Humidity: ${currentWeather.humidity}</li>
+        //     <li class="uv-index">UV Index: ${currentWeather.uv_index}</li>
+        // </ul>
+        // </div>`
         
-        nodeList.outputBlock.innerHTML = markup;
+        // nodeList.outputBlock.innerHTML = markup;
         toggleOverlay();
             })
             
@@ -127,14 +136,14 @@ const appController = (function(wetherCtrl, uiCtrl){
     })
     function findCity(){
     let input = myNodes.searchInput.value;
-        if(input !== '' && !isNaN(input)) return;
+        if(input == '' && !isNaN(input)) return;
         uiCtrl.updateInterface(input);
         myNodes.searchInput.value = '';
     }
 
     return {
         init: function(){
-            // wetherCtrl.fetchWeather('Egipt')
+            uiCtrl.updateInterface();
         }
     }
 })(weatherController, UIcontroller)
@@ -146,6 +155,11 @@ appController.init();
 
 
 
+
+
+
+
+    
 
 
 
