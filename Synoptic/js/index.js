@@ -9,7 +9,7 @@ const weatherController = (function(){
             .then(data => data.ip)
             .catch(err => console.log(err));
 
-    let fetchWeather = query => fetch(`http://api.weatherapi.com/v1/forecast.json?key=327adeb113914bb082455318202004&q=${query}&days=7`)
+    let fetchWeather = query => fetch(`https://api.weatherapi.com/v1/forecast.json?key=327adeb113914bb082455318202004&q=${query}&days=7`)
             .then(data => data.json())
             .catch(err => console.log(err));
 
