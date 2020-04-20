@@ -9,13 +9,9 @@ const weatherController = (function(){
             .then(data => data.ip)
             .catch(err => console.log(err));
 
-    let fetchWeather = query => fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=a3a4052d61ef5ecda40143bec7a6b7b6&units=metric`)
+    let fetchWeather = query => fetch(`http://api.weatherapi.com/v1/forecast.json?key=327adeb113914bb082455318202004&q=${query}&days=7`)
             .then(data => data.json())
             .catch(err => console.log(err));
-
-    let findCityTime = ip => fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=574e0feb69a547daab56c0922bde0d16&ip=${ip}`)
-            .then(data => data.json())
-
 
     let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d66551022b569be6f23252593&q=${query} sky&category=nature`)
         .then(data => data.json())
@@ -24,7 +20,7 @@ const weatherController = (function(){
 
         globalFetch: (input) => {
             if(input == null){
-                return  fetchIP().then(findCityTime).then(data => fetchWeather(data.city));
+                return  fetchIP().then(fetchWeather);
 
             }else{
                 return fetchWeather(input);
@@ -61,13 +57,62 @@ const UIcontroller = (function(){
         list: document.querySelector('.main-list'),
         background: document.querySelector('.background'),
         overlay: document.querySelector('.overlay'),
+        sevenDaysForcast: document.querySelector('.main-list')
 
     }
 
     const toggleOverlay = function(){
         nodeList.overlay.classList.toggle('visible');
     };
+    const createMainBlock = function({name, country, localtime}, {condition, temp_c, feelslike_c, humidity, uv}){
+            let markup = `<div class="infoblock">
+            <p class="country"><b>${name}, ${country}</b></p>
+            <p class="time">Local Time:<b> ${localtime.split(' ')[1]}</b></p>
+            <img src=http://${condition.icon} alt="Weather icon" height="60" width="60">
+            <p class="temperature">Local Temperature:<b> ${temp_c}</b></p>
+
+         <ul>
+            <li class="feelslike">Feels Like:<b> ${feelslike_c}</b></li>
+            <li class="humidity">Humidity:<b> ${humidity}</b></li>
+            <li class="uv-index">UV Index:<b> ${uv}</b></li>
+        </ul>
+        </div>`
+        
+        nodeList.outputBlock.innerHTML = markup;
+    };
+
+    const createSevenDaysBlocks = function({forecastday}){
+        
+        let markup = forecastday.reduce((acc, el) => {
+        let day = new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(new Date(el.date));
+       return  acc + `<li><div class="infoblock">
+        <p class="date">${day}</p>
+        <p class="min">min temp:<b> ${el.day.mintemp_c}</b></p>
+        <p class="max">max temp:<b> ${el.day.maxtemp_c}</b></p>
+        <p class="condition">condition:<b> ${el.day.condition.text}</b></p>
+        <img src=http://${el.day.condition.icon} alt="Weather icon" height="30" width="30">
+    </div></li>`
+        },'')
+
+         
+        
+    nodeList.sevenDaysForcast.innerHTML = markup;
+    }   
     
+    const createBackground = function(hr){
+             weatherController.backgroundFetch(hr).then(data => {
+                let numb = Math.round(Math.random() * 10);
+                nodeList.background.setAttribute("style", ` width: 100%;
+                height: 100%;
+                background-color:  rgba(15, 15, 15, 0.294);;
+                background: url('') ; 
+                 background: linear-gradient( rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0.048) ), url(${data.hits[numb].largeImageURL}) no-repeat center center fixed;
+              -webkit-background-size: cover; 
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;` )
+            })
+    }
 
     return {
 
@@ -75,40 +120,15 @@ const UIcontroller = (function(){
             toggleOverlay();
             weatherController.globalFetch(data).then(data => {
                 
-                // let location = data.location;
-                // let currentWeather = data.current;
-                // let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
+                let location = data.location;
+                let currentWeather = data.current;
+                let forecast = data.forecast;
+                let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
                 console.log(data)
-
-
-        //     weatherController.backgroundFetch(localHour).then(data => {
-        //         let numb = Math.round(Math.random() * 10);
-        //         nodeList.background.setAttribute("style", ` width: 100%;
-        //         height: 100%;
-        //         background-color:  rgba(15, 15, 15, 0.294);;
-        //         background: url('') ; 
-        //          background: linear-gradient( rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0.048) ), url(${data.hits[numb].largeImageURL}) no-repeat center center fixed;
-        //       -webkit-background-size: cover; 
-        //       -moz-background-size: cover;
-        //       -o-background-size: cover;
-        //       background-size: cover;` )
-        //     })
-
-        //     let markup = `<div class="infoblock">
-        //     <p class="country">${location.name}, ${location.country}</p>
-        //     <p class="time">Local Time: ${location.localtime.split(' ')[1]}</p>
-        //     <img src=${currentWeather.weather_icons[0]} alt="Weather icon" height="42" width="42">
-        //     <p class="temperature">Local Temperature: ${currentWeather.temperature}</p>
-
-        //  <ul>
-        //     <li class="feelslike">Feels Like: ${currentWeather.feelslike}</li>
-        //     <li class="humidity">Humidity: ${currentWeather.humidity}</li>
-        //     <li class="uv-index">UV Index: ${currentWeather.uv_index}</li>
-        // </ul>
-        // </div>`
-        
-        // nodeList.outputBlock.innerHTML = markup;
-        toggleOverlay();
+                createBackground(localHour);
+                createMainBlock(location, currentWeather);
+                createSevenDaysBlocks(forecast);
+            toggleOverlay();
             })
             
         },

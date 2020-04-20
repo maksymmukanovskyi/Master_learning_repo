@@ -35,13 +35,11 @@ body {
     left: 47.5%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: rgba(44, 44, 44, 0.917);
     font-size: 1.5rem;
 }
 .weekFork{
     display: block;
     width: 97%;
-    /* background-color: rgb(185, 185, 185); */
     height: 170px;
     margin: auto;
     position: absolute;
@@ -58,7 +56,7 @@ body {
 
 }
 li > .infoblock{
-    font-size: 1rem;
+    font-size: 19px;
 }
 
 .main-list > li{
@@ -66,8 +64,9 @@ li > .infoblock{
 display: block;
 width: 14%; 
 height: 150px; 
-background-color: rgb(255, 255, 255); 
+background-color: rgba(255, 255, 255, 0.281);
 border-radius: 5px;
+border: 1px solid #ccc;
 }
   
   .searchContainer {
@@ -82,7 +81,7 @@ border-radius: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.719);
+    background-color: rgba(255, 255, 255, 0.281);
   }
   
   .searchIcon {
