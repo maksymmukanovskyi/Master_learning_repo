@@ -29,13 +29,13 @@ const weatherController = (function(){
 
         backgroundFetch: (input) => {
             let time;
-            if(input >= 0 && input < 6 || input >= 21 && input <= 24){
+            if(input >= 0 && input < 6 || input >= 20 && input <= 24){
                 time = "night sky";
             }else if(input >= 6 && input < 9){
                 time = 'morning sky';
             }else if(input >= 9 && input < 18){
                 time = 'day sky';
-            }else if(input >= 18 && input <= 20){
+            }else if(input >= 18 && input <= 19){
                 time = 'evening sky';
             }
             return fetchBackground(time)
@@ -68,13 +68,14 @@ const UIcontroller = (function(){
             let markup = `<div class="infoblock">
             <p class="country"><b>${name}, ${country}</b></p>
             <p class="time">Local Time:<b> ${localtime.split(' ')[1]}</b></p>
-            <img src=http://${condition.icon} alt="Weather icon" height="60" width="60">
+           
             <p class="temperature">Local Temperature:<b> ${temp_c}</b></p>
 
          <ul>
             <li class="feelslike">Feels Like:<b> ${feelslike_c}</b></li>
             <li class="humidity">Humidity:<b> ${humidity}</b></li>
             <li class="uv-index">UV Index:<b> ${uv}</b></li>
+            <span> <img src=http://${condition.icon} alt="Weather icon" height="60" width="60"></span>
         </ul>
         </div>`
         
@@ -86,7 +87,7 @@ const UIcontroller = (function(){
         let markup = forecastday.reduce((acc, el) => {
         let day = new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(new Date(el.date));
        return  acc + `<li><div class="infoblock">
-        <p class="date">${day}</p>
+        <p class="date"><b> ${day}</b></p>
         <p class="min">min temp:<b> ${el.day.mintemp_c}</b></p>
         <p class="max">max temp:<b> ${el.day.maxtemp_c}</b></p>
         <p class="condition">condition:<b> ${el.day.condition.text}</b></p>
@@ -106,7 +107,7 @@ const UIcontroller = (function(){
                 height: 100%;
                 background-color:  rgba(15, 15, 15, 0.294);;
                 background: url('') ; 
-                 background: linear-gradient( rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0.048) ), url(${data.hits[numb].largeImageURL}) no-repeat center center fixed;
+                 background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0.5) ), url(${data.hits[numb].largeImageURL}) no-repeat center center fixed;
               -webkit-background-size: cover; 
               -moz-background-size: cover;
               -o-background-size: cover;

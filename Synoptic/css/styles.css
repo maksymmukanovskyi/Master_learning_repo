@@ -15,13 +15,12 @@ body {
     margin: auto;
     width: 41.5%;
     border: 1px solid #ccc;
-    height: 65px;
     position: absolute;
     top: 45%;
     left: 22%;
     transform: translate(-50%, -50%);
     background-color: rgba(255, 255, 255, 0.493);
-    height: 230px;
+    height: 250px;
     border-radius: 5px;
 }
 .infoblock{
@@ -34,7 +33,7 @@ body {
     top: 50%;
     left: 47.5%;
     transform: translate(-50%, -50%);
-    text-align: center;
+    text-align: left;
     font-size: 1.5rem;
 }
 .weekFork{
@@ -52,11 +51,16 @@ body {
 .main-list{
     display: flex;
   justify-content: space-between;
+
   
 
 }
 li > .infoblock{
-    font-size: 19px;
+    font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .main-list > li{
