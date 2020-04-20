@@ -85,9 +85,9 @@ const UIcontroller = (function(){
     const createSevenDaysBlocks = function({forecastday}){
         
         let markup = forecastday.reduce((acc, el) => {
-        let day = new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(new Date(el.date));
+        let localeUs = new Date(el.date).toLocaleString('en-US', {weekday: 'long'})
        return  acc + `<li><div class="infoblock">
-        <p class="date"><b> ${day}</b></p>
+        <p class="date"><b> ${localeUs}</b></p>
         <p class="min">min temp:<b> ${el.day.mintemp_c}</b></p>
         <p class="max">max temp:<b> ${el.day.maxtemp_c}</b></p>
         <p class="condition">condition:<b> ${el.day.condition.text}</b></p>

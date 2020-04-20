@@ -67,7 +67,7 @@ ul {
     margin-top: 10px;
 display: block;
 width: 14%; 
-height: 150px; 
+height: 180px; 
 background-color: rgba(255, 255, 255, 0.281);
 border-radius: 5px;
 border: 1px solid #ccc;
@@ -90,7 +90,7 @@ border: 1px solid #ccc;
   
   .searchIcon {
     padding: 0.5rem;
-    color: rgba(44, 44, 44, 0.623);
+    color: rgba(255, 255, 255, 0.664);
     font-size: 25px;
   }
   
@@ -99,12 +99,12 @@ border: 1px solid #ccc;
     padding: 0.5rem 0.5rem 0.5rem 0;
     flex: 1;
     background-color: unset;
-    color: rgba(44, 44, 44, 0.623);
+    color: rgba(255, 255, 255, 0.664);
     text-align: center;
     font-size: 19px;
   }
   ::placeholder{
-    color: rgba(44, 44, 44, 0.623);
+    color: rgba(255, 255, 255, 0.664);
   }
   
   .searchButton {
