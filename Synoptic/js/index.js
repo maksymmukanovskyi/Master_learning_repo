@@ -10,8 +10,11 @@ const weatherController = (function(){
             .catch(err => console.log(err));
 
     let fetchWeather = query => fetch(`https://api.weatherapi.com/v1/forecast.json?key=327adeb113914bb082455318202004&q=${query}&days=7`)
-            .then(data => data.json())
-            .catch(err => console.log(err));
+            .then(data => {
+                if(data.ok) return data.json();
+                throw new Error(`Please Type the name of the city properly!`)
+            })
+            .catch( error => alert(error));
 
     let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d66551022b569be6f23252593&q=${query} sky&category=nature`)
         .then(data => data.json())
@@ -23,7 +26,7 @@ const weatherController = (function(){
                 return  fetchIP().then(fetchWeather);
 
             }else{
-                return fetchWeather(input);
+                return fetchWeather(input)
             }
         },
 
@@ -75,7 +78,7 @@ const UIcontroller = (function(){
             <li class="feelslike">Feels Like:<b> ${feelslike_c}</b></li>
             <li class="humidity">Humidity:<b> ${humidity}</b></li>
             <li class="uv-index">UV Index:<b> ${uv}</b></li>
-            <span> <img src=http://${condition.icon} alt="Weather icon" height="60" width="60"></span>
+            <div class = "myIcon"> <img src=http://${condition.icon} alt="Weather icon" ></div>
         </ul>
         </div>`
         
@@ -85,7 +88,12 @@ const UIcontroller = (function(){
     const createSevenDaysBlocks = function({forecastday}){
         
         let markup = forecastday.reduce((acc, el) => {
-        let localeUs = new Date(el.date).toLocaleString('en-US', {weekday: 'long'})
+        let localeUs = new Date(el.date).toLocaleString('en-US', {
+            weekday: 'long',
+            month : 'short',
+            day : 'numeric',
+    });
+
        return  acc + `<li><div class="infoblock">
         <p class="date"><b> ${localeUs}</b></p>
         <p class="min">min temp:<b> ${el.day.mintemp_c}</b></p>
@@ -119,20 +127,26 @@ const UIcontroller = (function(){
 
         updateInterface: function(data){
             toggleOverlay();
-            weatherController.globalFetch(data).then(data => {
-                
-                let location = data.location;
-                let currentWeather = data.current;
-                let forecast = data.forecast;
-                let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
-                console.log(data)
-                createBackground(localHour);
-                createMainBlock(location, currentWeather);
-                createSevenDaysBlocks(forecast);
-            toggleOverlay();
-            })
-            
+
+         weatherController.globalFetch(data).then(data => {
+                    console.log(data)
+                    if(data !== undefined){
+                        let location = data.location;
+                    let currentWeather = data.current;
+                    let forecast = data.forecast;
+                    let localHour = Number(location.localtime.split(' ')[1].split(':')[0])
+                    console.log(data)
+                    createBackground(localHour);
+                    createMainBlock(location, currentWeather);
+                    createSevenDaysBlocks(forecast);
+                    toggleOverlay();
+                    }else{
+                    toggleOverlay();
+                    }
+                    
+                })
         },
+
         getDomList: function(){
             return nodeList;
         },
@@ -147,7 +161,7 @@ const UIcontroller = (function(){
 const appController = (function(wetherCtrl, uiCtrl){
     let myNodes = uiCtrl.getDomList();
     myNodes.searchForm.addEventListener('click', (e) =>{
-        if(e.target.nodeName !== 'I')return;
+        if(e.target.nodeName !== 'BUTTON')return;
         findCity();
     });
 
@@ -177,10 +191,6 @@ appController.init();
 
 
 
-
-
-
-    
 
 
 
