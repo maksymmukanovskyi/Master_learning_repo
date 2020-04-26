@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/maksymmukanovskyi/Master_learning_repo/issues"
   },
-  "homepage": "https://github.com/maksymmukanovskyi/Master_learning_repo#readme"
+  "homepage": "https://github.com/maksymmukanovskyi/Master_learning_repo#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
