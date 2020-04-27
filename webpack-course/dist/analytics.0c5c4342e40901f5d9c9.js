@@ -81,19 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./analytics.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/index.js":
+/***/ "./analytics.js":
 /*!**********************!*\
-  !*** ./src/index.js ***!
+  !*** ./analytics.js ***!
   \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const post = new Post('Webpack post title)');\r\nconsole.log(`post to strimg ${post.toString()}`)\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("function createAnalytics(){\r\n    let destroyed = false\r\n    let counter = 0;\r\n    const handleClick = () => {\r\n        counter ++;\r\n    }\r\n    document.addEventListener(\"click\", handleClick);\r\n    return {\r\n        destroy(){\r\n            document.removeEventListener(\"click\", handleClick);\r\n            destroyed = true;\r\n        },\r\n        getClicks(){\r\n            if(destroyed){\r\n                return 'Analytics is destroyed'\r\n            }\r\n            return counter;\r\n        }\r\n\r\n    }\r\n};\r\nwindow.analytics = createAnalytics();\n\n//# sourceURL=webpack:///./analytics.js?");
 
 /***/ })
 
