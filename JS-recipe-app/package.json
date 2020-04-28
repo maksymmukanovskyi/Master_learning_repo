@@ -1,0 +1,24 @@
+{
+  "name": "js-recipe-app",
+  "version": "1.0.0",
+  "description": "learning-material",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/maksymmukanovskyi/Master_learning_repo.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "webpack"
+  ],
+  "author": "Max",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maksymmukanovskyi/Master_learning_repo/issues"
+  },
+  "homepage": "https://github.com/maksymmukanovskyi/Master_learning_repo#readme"
+}
