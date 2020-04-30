@@ -34,20 +34,21 @@ module.exports = {
             {
                 from: path.resolve(__dirname, './src/assets/favicon.png'),
                 to:path.resolve(__dirname, 'dist'), 
-            }
+            },
+            {
+                from: path.resolve(__dirname, './src/assets/sprite.svg'),
+                to:path.resolve(__dirname, 'dist'),
+              }
         ]),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css'
         }),
+        
     ],
 
     
     module: {
         rules: [
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                use: ['svg-inline-loader'],
-            },
             { 
                 test: /\.js$/, 
                 exclude: /node_modules/, 
@@ -65,7 +66,7 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             {
-                test: /\.(png|jpg|svg|gif)$/,
+                test: /\.(png|jpg|svg|gif)$/i,
                 use: ['file-loader'],
             },
             {
