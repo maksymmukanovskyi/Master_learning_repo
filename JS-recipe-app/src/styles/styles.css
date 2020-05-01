@@ -230,15 +230,17 @@ body {
   .results__list,
   .likes__list {
     list-style: none; }
-  .results__link:link, .results__link:visited,
+
+     .results__link:link, .results__link:visited,
   .likes__link:link,
-  .likes__link:visited {
+  .likes__link:visited, .results__link {
     display: flex;
     align-items: center;
     padding: 1.5rem 3rem;
     transition: all .3s;
     border-right: 1px solid #fff;
     text-decoration: none; }
+
   .results__link:hover,
   .likes__link:hover {
     background-color: #F9F5F3;
