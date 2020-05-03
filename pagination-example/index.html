@@ -17,23 +17,58 @@
         }
         .root{
             display: block;
-            width: 90%;
+            width: fit-content; 
+            height: fit-content;
             margin: 10px auto;
         }
         .search{
-            display: block;
+            display: inline-block;
             background-color: gray;
             width: 150px;
             height: 35px;
+            
+        }
+        .form{
+            display: block;
             margin: 50px auto;
+            width: fit-content; 
+            height: fit-content;
+        }
+        input{
+            margin: 0;
+            padding: 0;
+            width: 150px;
+            height: 31px;
+            text-align: center;
+        }
+        .inputForm{
+            display: inline-block;
+            
+        }
+        .btn-inline{
+            display: inline-block;
+            background-color: gray;
+            width: 150px;
+            height: 35px;
+        }
+        .result__pages{
+            width: fit-content; 
+            height: fit-content;
+            margin: 50px auto;
+
         }
     </style>
 </head>
 <body>
-    <button class='search'>search</button>
+    <div class="form">
+        <form class="inputForm">
+            <input type="text" id="inputData" placeholder="type keyword">
+          </form>
+        <button class='search'>search</button>
+    </div>
+    
     <div class="root"></div>
     <div class="result__pages">
-    
     </div>
     <script src="./index.js"></script>
 </body>

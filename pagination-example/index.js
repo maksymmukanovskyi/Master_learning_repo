@@ -1,20 +1,32 @@
 "use strict"
 let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d66551022b569be6f23252593&q=${query} sky&category=nature`)
         .then(data => data.json()).then(data => data.hits)
+
+const domElements = {
+        root: document.querySelector('.root'),
+        navButtons: document.querySelector('.result__pages'),
+        initSearchBtn: document.querySelector('.search'),
+        inputField: document.querySelector('#inputData')
+        }        
         
-        
+function clearResults(){
+        domElements.root.innerHTML = '';
+        domElements.navButtons.innerHTML = '';
+        data.images = null;
+        }
 
 
 
-let  renderImages = (data) => {
- let markup = `<div class="pics"><img  src="${data.largeImageURL}" alt="dogs"></div>`;
- document.querySelector('.root').insertAdjacentHTML('beforeend', markup);
-}
+
+const  renderImages = (data) => {
+        let markup = `<div class="pics"><img  src="${data.largeImageURL}" alt="dogs"></div>`;
+        domElements.root.insertAdjacentHTML('beforeend', markup);
+        }
 
 const createBtn = (page, type) => `
-<button class="btn-inline results__btn--${type} data-goto="${type === "prev"? page - 1 : page + 1}">
+        <button class="btn-inline results__btn--${type}" data-goto="${type === "prev"? page - 1 : page + 1}">
         <span>Page ${type === "prev"? page - 1 : page + 1}</span>
-</button>`;
+        </button>`;
 
 const renderBtn = (page, numRes, resPerPage) => {
         const pages = Math.ceil(numRes / resPerPage);
@@ -28,32 +40,39 @@ const renderBtn = (page, numRes, resPerPage) => {
                 button = createBtn(page, 'prev');
         }
         console.log(button)
- document.querySelector('.result__pages').insertAdjacentHTML('afterbegin', button);
+        domElements.navButtons.insertAdjacentHTML('afterbegin', button);
+        }
+
+const data = {
+        images: null,
 }
 
-
-let renderResult = (page = 1, resPerPage = 5) => {
+let renderResult = (page = 1, resPerPage = 5, input = 'nature') => {
         const start = (page -1) * resPerPage;
         const end = page *resPerPage;
         
-
-
-        fetchBackground('dog').then(data => {
-
+        fetchBackground(input).then(data => {
         data.slice(start, end).forEach(renderImages)
+        console.log(data)
         renderBtn(page, data.length, resPerPage)
-
         })
-
-        
-}
+        }
 
 
 
 
+domElements.initSearchBtn.addEventListener('click', () => {
+        clearResults();
+        data.images = domElements.inputField.value
+        renderResult(1, undefined, data.images);
+        domElements.inputField.value = '';
+        });
 
-
-
-document.querySelector('.search').addEventListener('click', () => {
-        renderResult();
-})
+domElements.navButtons.addEventListener('click', e => {
+        let btn = e.target.closest('.btn-inline');
+        if(btn){
+                const goToPage = parseInt(btn.dataset.goto, 10);
+                clearResults();
+                renderResult(goToPage, undefined, data.images);
+        }
+        })
