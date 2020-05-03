@@ -12,7 +12,6 @@ const domElements = {
 function clearResults(){
         domElements.root.innerHTML = '';
         domElements.navButtons.innerHTML = '';
-        data.images = null;
         }
 
 
@@ -43,15 +42,14 @@ const renderBtn = (page, numRes, resPerPage) => {
         domElements.navButtons.insertAdjacentHTML('afterbegin', button);
         }
 
-const data = {
-        images: null,
-}
 
-let renderResult = (page = 1, resPerPage = 5, input = 'nature') => {
+const inputVal = {};
+
+let renderResult = (page = 1, resPerPage = 5) => {
         const start = (page -1) * resPerPage;
         const end = page *resPerPage;
         
-        fetchBackground(input).then(data => {
+        fetchBackground(inputVal.val).then(data => {
         data.slice(start, end).forEach(renderImages)
         console.log(data)
         renderBtn(page, data.length, resPerPage)
@@ -62,9 +60,10 @@ let renderResult = (page = 1, resPerPage = 5, input = 'nature') => {
 
 
 domElements.initSearchBtn.addEventListener('click', () => {
+        inputVal.val = domElements.inputField.value
+        if(!inputVal.val)return;
         clearResults();
-        data.images = domElements.inputField.value
-        renderResult(1, undefined, data.images);
+        renderResult();
         domElements.inputField.value = '';
         });
 
@@ -73,6 +72,6 @@ domElements.navButtons.addEventListener('click', e => {
         if(btn){
                 const goToPage = parseInt(btn.dataset.goto, 10);
                 clearResults();
-                renderResult(goToPage, undefined, data.images);
+                renderResult(goToPage);
         }
         })
