@@ -75,3 +75,28 @@ domElements.navButtons.addEventListener('click', e => {
                 renderResult(goToPage);
         }
         })
+
+        // let arr = [
+        //         'hello my name is Kolya',
+        //         'im senior software engeneer',
+        //         'finished bootcamp and already works',
+        //         'im really heppy to do this job',
+        // ]
+
+        // const limitWord = (str, size) => {
+        //         const newArr = [];
+        //         if(str.length >= size){
+        //                 str.split(' ').reduce((acc, el) =>{
+        //                         if(acc + el.length < size){
+        //                                 newArr.push(el)
+        //                         }
+        //                         return acc + el.length;
+        //                 },0)
+        //                 return `${newArr.join(' ')}...`
+        //         }
+        //         return str;
+                
+        // }
+
+        // let res = arr.map(el => limitWord(el, 9))
+        // console.log(res)
