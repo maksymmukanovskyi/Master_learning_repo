@@ -15,9 +15,12 @@ const processedIng = stringArr.map(el => {
     ingred = ingred.replace(/ *\([^)]*\) */g,'')
     //3 parse ingredientd  into COUNT, UNIT, INGREDIENT
     const arrIngredient = ingred.split(' ')
-    let unitIndex = arrIngredient.findIndex(ingEl => unitsShort.includes(ingEl))
-    console.log(unitIndex)
+    let unitIndex = arrIngredient.findIndex(ingEl => unitsShort.includes(ingEl));
+
+
     let ingObject;
+
+    
     if(unitIndex > -1){
         //it has unit
         let count = arrIngredient.slice(0, unitIndex)

@@ -3,6 +3,8 @@ import Search from './models/Search';
 import Recipe from './models/Recipe';
 import {elements, renderLoader, clearLoader, elementstring} from './views/base';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
+
 
 /* Global state of the app
 -search object
@@ -32,6 +34,7 @@ const controlSearch = async () => {
         await state.search.getResults();
         // 5. Render resaults on UI
         searchView.renderResults(state.search.recipes)
+
         clearLoader();
         }catch(error){
             alert('something wrong with search...')
@@ -63,14 +66,13 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
     //get id from URL
     const id  = window.location.hash.replace('#', '');
-    console.log('id', id)
+    
     
     if(id){
         //prepare UI for changes
-        // searchView.clearInput();
-        // searchView.clearResults();
-        // renderLoader(elements.searchRes)
-        //create new recipe obj
+        recipeView.clearRecipe();
+ 
+        renderLoader(elements.recipe)
         state.recipe = new Recipe(id)
         
         try{
@@ -82,8 +84,11 @@ const controlRecipe = async () => {
         state.recipe.parseIngredients();
 
         //render recipe
-        console.log(state.recipe)
+        clearLoader();
+        recipeView.renderRecipe(state.recipe)
+        
         }catch(error){
+            // clearLoader();
             alert('Error processin recipe!')
         }
         
