@@ -4,6 +4,8 @@ let fetchBackground = query => fetch(`https://pixabay.com/api/?key=9603142-d6655
 
 const domElements = {
         root: document.querySelector('.root'),
+        root2: document.querySelector('.root-2'),
+
         navButtons: document.querySelector('.result__pages'),
         initSearchBtn: document.querySelector('.search'),
         inputField: document.querySelector('#inputData')
@@ -22,6 +24,12 @@ const  renderImages = (data) => {
         </a>`;
         domElements.root.insertAdjacentHTML('beforeend', markup);
         }
+const renderMainImg = (data) => {
+    let markup = `<div><img class="mainImg" src= "${data.largeImageURL}" ></img></div>`
+    domElements.root2.insertAdjacentHTML('beforeend', markup);
+    // document.querySelector('body').style.backgroundImage = `url(${data.largeImageURL})`;
+        
+}        
 
 const createBtn = (page, type) => `
         <button class="btn-inline results__btn--${type}" data-goto="${type === "prev"? page - 1 : page + 1}">
@@ -45,18 +53,28 @@ const renderBtn = (page, numRes, resPerPage) => {
 
 
 const inputVal = {};
+const dataBase = {}
 
-let renderResult = (page = 1, resPerPage = 5) => {
+let renderResult = (page = 1, resPerPage = 10) => {
         const start = (page -1) * resPerPage;
         const end = page *resPerPage;
         
         fetchBackground(inputVal.val).then(data => {
-            console.log(data)
+        dataBase.picsObj = data;
         data.slice(start, end).forEach(renderImages)
         console.log(data)
         renderBtn(page, data.length, resPerPage)
         })
         }
+
+const hashHandler = async () => {
+    domElements.root2.innerHTML ='';
+    const ID = parseInt(window.location.hash.replace('#', ''), 10);
+    if(ID){
+         let data = await dataBase.picsObj
+         renderMainImg(data.find(el => el.id === ID))
+    }
+}        
 
 
 
@@ -77,3 +95,5 @@ domElements.navButtons.addEventListener('click', e => {
                 renderResult(goToPage);
         }
         })
+
+window.addEventListener('hashchange', hashHandler);        
