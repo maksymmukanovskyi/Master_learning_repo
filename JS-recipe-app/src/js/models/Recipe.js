@@ -13,6 +13,7 @@ export default class Recipe{
             this.img = result.data.recipe.image_url;
             this.url = result.data.recipe.source_url;
             this.ingredients = result.data.recipe.ingredients;
+            console.log(this.ingredients)
         }catch (error){
             console.log(error)
             alert('No id found :(')
@@ -50,6 +51,7 @@ export default class Recipe{
             if(unitIndex > -1){
                 //there is aunit
                 const arrCount = arrIng.slice(0, unitIndex);
+                
                 let count;
                 if(arrCount.length === 1){
                     count = eval(arrIng[0].replace('-', '+'));
