@@ -29,6 +29,7 @@ const controlSearch = async () => {
         searchView.clearInput();
         searchView.clearResults();
         renderLoader(elements.searchRes)
+        
         try{
             //4. Search for recipes
         await state.search.getResults();
@@ -74,6 +75,9 @@ const controlRecipe = async () => {
  
         renderLoader(elements.recipe)
         state.recipe = new Recipe(id)
+
+        // highlight selected
+        if(state.search) searchView.highlightSelected(id)
         
         try{
             //get recipe data and parse ingredients

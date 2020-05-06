@@ -52,8 +52,8 @@
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "dom": "0.0.3",
-    "normalize.css": "^8.0.1",
     "fractional": "^1.0.0",
+    "normalize.css": "^8.0.1",
     "uniqid": "^4.1.1"
   }
 }
