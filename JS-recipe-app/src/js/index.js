@@ -133,6 +133,40 @@ const controlList = () => {
         }
     });
 
+
+///////////////////////////////* Like controller *//////////////////////////////////
+const controlLikes = () => {
+    if(!state.likes) state.likes = new Likes();
+    const currentId = state.recipe.id;
+    // user has not liked current redipe
+    if(!state.likes.isLiked(currentId)){
+        // add like to the state
+       const newLike =  state.likes.addLike(
+        currentId,
+        state.recipe.title,
+        state.recipe.author,
+        state.recipe.img
+        );
+        //  toggle the like button
+
+        // add like to UI list
+        console.log(state.likes);
+
+    //user has liked current recipe    
+    }else{
+        // remove like to the state
+        state.likes.removeLike(currentId);
+        //  toggle the like button
+
+        // remove like to UI list
+        console.log(state.likes);
+
+
+    }
+
+}
+
+
 elements.recipe.addEventListener('click', e => {
 
     if(e.target.matches('.btn-decrease, .btn-decrease *')){
@@ -147,6 +181,7 @@ elements.recipe.addEventListener('click', e => {
 
     }else if(e.target.matches('.recipe__btn--add, .recipe__btn--add *')){
         controlList();
+    }else if(e.target.matches('.recipe__love, .recipe__love *')){
+        controlLikes()
     }
-    console.log(state.recipe)
 })
