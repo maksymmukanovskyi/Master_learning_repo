@@ -137,12 +137,6 @@ const controlList = () => {
 
         }
     });
-////testing
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
-
-
-
 ///////////////////////////////* Like controller *//////////////////////////////////
 const controlLikes = () => {
     if(!state.likes) state.likes = new Likes();
@@ -174,8 +168,20 @@ const controlLikes = () => {
         likesView.deleteLike(currentId)
     }
     likesView.toggleLikeMenu(state.likes.getNumLikes());
-
 }
+
+// restore liked recipe on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    //restore likes
+    state.likes.readStorageData();
+    //toggle like menu
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+    //render the existing likes
+    state.likes.likes.forEach(like => {
+        likesView.renderLike(like)
+    })
+})
 
 
 elements.recipe.addEventListener('click', e => {
