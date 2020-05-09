@@ -36,7 +36,7 @@ const createIngredient = ingredient => `
 </li>
 `;
 
-export const renderRecipe = recipe => {
+export const renderRecipe = (recipe, isLiked) => {
     console.log('hello', recipe);
     const markup = `
     <figure class="recipe__fig">
@@ -74,7 +74,7 @@ export const renderRecipe = recipe => {
                 </div>
                 <button class="recipe__love">
                     <svg class="header__likes">
-                        <use href="./sprite.svg#icon-heart-outlined"></use>
+                        <use href="./sprite.svg#${isLiked? 'icon-heart' : 'icon-heart-outlined'}"></use>
                     </svg>
                 </button>
             </div>
