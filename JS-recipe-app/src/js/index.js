@@ -19,14 +19,12 @@ import * as likesView from './views/likesView';
 -liked recipes
 */
 const state = {};
-window.state = state;
 ///////////////////////////////* Search controller *//////////////////////////////////
 
 const controlSearch = async () => {
     // 1. get query fromview
     const query = searchView.getInput();
 
-    console.log(query)
 
     if(query){
         //2. New search object and add to state
@@ -155,7 +153,6 @@ const controlLikes = () => {
 
         // add like to UI list
         likesView.renderLike(newLike)
-        console.log(state.likes);
 
     //user has liked current recipe    
     }else{
